@@ -26,10 +26,14 @@ namespace BulkyBook.DataAccess.Repository
             dbSet.Add(entity);
         }
 
-        public IEnumerable<T> GetAll(string? IncludeStatements = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter=null, string? IncludeStatements = null)
         {
             IQueryable<T> query = dbSet;
-            if(IncludeStatements != null)
+            if(filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (IncludeStatements != null)
             {
                 foreach(string statement in IncludeStatements.Split(",", StringSplitOptions.RemoveEmptyEntries))
                 {
