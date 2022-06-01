@@ -14,7 +14,7 @@ namespace BulkyBook.Utility
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             var emailToSend = new MimeMessage();
-            emailToSend.From.Add(MailboxAddress.Parse("fawcettezach@gmail.com"));
+            emailToSend.From.Add(MailboxAddress.Parse("****"));
             emailToSend.To.Add(MailboxAddress.Parse(email));
             emailToSend.Subject = subject;
             emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = htmlMessage };
