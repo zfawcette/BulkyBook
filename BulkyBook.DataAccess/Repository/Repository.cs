@@ -43,9 +43,18 @@ namespace BulkyBook.DataAccess.Repository
             return query.ToList();
         }
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? IncludeStatements = null)
+        public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? IncludeStatements = null, bool tracked = true)
         {
-            IQueryable<T> query = dbSet;
+            IQueryable<T> query;
+			if (tracked)
+			{
+                query = dbSet;
+			}
+			else
+			{
+                query = dbSet.AsNoTracking();
+			}
+
             if (IncludeStatements != null)
             {
                 foreach (string statement in IncludeStatements.Split(",", StringSplitOptions.RemoveEmptyEntries))
